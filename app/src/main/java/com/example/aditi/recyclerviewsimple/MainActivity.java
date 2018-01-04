@@ -5,6 +5,10 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.aditi.recyclerviewsimple.adapter.MyRecyclerView;
 import com.example.aditi.recyclerviewsimple.pojo.Details;
@@ -12,6 +16,10 @@ import com.example.aditi.recyclerviewsimple.pojo.Details;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+
+
+    private Button btn_add;
+    private EditText edt;
     // recycler view refrence
     RecyclerView mRecyclerView;
     //creating array list to store the data
@@ -23,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        btn_add=findViewById(R.id.button);
+        edt=findViewById(R.id.editText);
 
         mRecyclerView = findViewById(R.id.recyclerView);
         mMyRecyclerView = new MyRecyclerView(mDetails);
@@ -30,7 +40,20 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mMyRecyclerView);
-        addData();
+       // addData();
+
+        btn_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name=edt.getText().toString();
+                Details details = new Details(name, "Pro");
+                mDetails.add(details);
+                mMyRecyclerView.notifyDataSetChanged();
+                edt.setText("");
+
+
+            }
+        });
 
 
     }
@@ -50,5 +73,7 @@ public class MainActivity extends AppCompatActivity {
         mMyRecyclerView.notifyDataSetChanged();
 
 
+
     }
+
 }
