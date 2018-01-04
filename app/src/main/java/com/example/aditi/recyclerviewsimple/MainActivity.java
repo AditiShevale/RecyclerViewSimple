@@ -35,7 +35,12 @@ public class MainActivity extends AppCompatActivity {
         edt=findViewById(R.id.editText);
 
         mRecyclerView = findViewById(R.id.recyclerView);
-        mMyRecyclerView = new MyRecyclerView(mDetails);
+        mMyRecyclerView = new MyRecyclerView(mDetails, new MyRecyclerView.ListItemClickListener() {
+            @Override
+            public void onListItemClick(Details details) {
+                Toast.makeText(MainActivity.this, details.getName(), Toast.LENGTH_SHORT).show();
+            }
+        });
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
